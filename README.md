@@ -31,6 +31,20 @@
 
 ---
 
+## Forensic Interface & Live Visuals
+
+| Tactical Geospatial Mapping | Entity Linkage Forensics |
+| :---: | :---: |
+| ![Tactical Map](docs/screenshots/tactical_map_overview.png) | ![Linkage Graph](docs/screenshots/linkage_network_analysis.png) |
+| *Jurisdictional incident cluster & hotspot telemetry* | *Multi-entity syndicate correlation & bridge detection* |
+
+| Digital Intelligence Operations | Incident Context Inspector |
+| :---: | :---: |
+| ![Dashboard](docs/screenshots/forensic_intelligence_dashboard.png) | ![Popup Inspector](docs/screenshots/incident_popup_bubble.png) |
+| *Unified cyber crime analytics & CDR ingestion* | *In-depth evidence details & demographic verification* |
+
+---
+
 ## System Architecture
 
 ```mermaid
