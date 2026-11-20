@@ -1,0 +1,207 @@
+/* ─────────────────────────────────────────────────────────────
+   KAVACH-NET / SUTRAL-OMNI DESIGN SYSTEM
+   Official Indian Government Law Enforcement Palette:
+   
+   - Command Header: #DC2626 (Sutral Command Red)
+   - Command Navy Sidebar: #070D1E / #0F172A (Border Right: 4px solid #DC2626)
+   - Active Selection Pill: #F0A91E (Sutral Gold)
+   - Light Workspace Base: #EEF1F6 (Cards: #FFFFFF, Borders: #DDE3EC)
+   - Dark Workspace Base:  #050B14 (Cards: #0B121F, Borders: #1E293B)
+───────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&display=swap');
+@import "leaflet/dist/leaflet.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Light Command Baseline ─────────────────────────────────── */
+:root {
+  --bg-app:        #EEF1F6;
+  --bg-workspace:  #FFFFFF;
+  --bg-elevated:   #F8FAFC;
+  --bg-active:     #F0A91E;
+  --bg-active-text:#050B14;
+  --bg-canvas:     #EBF0F7;
+  --bg-header:     #DC2626;
+
+  --text-primary:   #1A2338;
+  --text-secondary: #4B5563;
+  --text-tertiary:  #6B7280;
+
+  --border-subtle:  #DDE3EC;
+  --border-medium:  #D1D9E6;
+  --border-accent:  #DC2626;
+
+  --accent:         #DC2626;
+  --accent-gold:    #F0A91E;
+
+  --status-ok:            #16A34A;
+  --status-ok-muted:      rgba(22, 163, 74, 0.12);
+  --status-warning:       #D97706;
+  --status-warning-muted: rgba(217, 119, 6, 0.12);
+  --status-critical:      #DC2626;
+  --status-critical-muted:rgba(220, 38, 38, 0.12);
+  --status-critical-a25:  rgba(220, 38, 38, 0.25);
+  --status-critical-a40:  rgba(220, 38, 38, 0.40);
+
+  --shadow-sm:       0 1px 2px rgba(26, 35, 56, 0.06);
+  --shadow-md:       0 4px 12px rgba(26, 35, 56, 0.08);
+  --shadow-panel:    0 2px 10px rgba(26, 35, 56, 0.05);
+}
+
+/* ── Dark Command Override ─────────────────────────────────── */
+.dark {
+  --bg-app:        #050B14;
+  --bg-workspace:  #0B121F;
+  --bg-elevated:   #111927;
+  --bg-active:     #F0A91E;
+  --bg-active-text:#050B14;
+  --bg-canvas:     #03070E;
+  --bg-header:     #070D1E;
+
+  --text-primary:   #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-tertiary:  #64748B;
+
+  --border-subtle:  #1E293B;
+  --border-medium:  #334155;
+  --border-accent:  #DC2626;
+
+  --accent:         #DC2626;
+  --accent-gold:    #F0A91E;
+
+  --status-ok:            #4ADE80;
+  --status-ok-muted:      rgba(74, 222, 128, 0.12);
+  --status-warning:       #FBBF24;
+  --status-warning-muted: rgba(251, 191, 36, 0.12);
+  --status-critical:      #FB7185;
+  --status-critical-muted:rgba(251, 113, 133, 0.12);
+  --status-critical-a25:  rgba(251, 113, 133, 0.25);
+  --status-critical-a40:  rgba(251, 113, 133, 0.40);
+}
+
+.dark .leaflet-popup-content-wrapper,
+.dark .leaflet-popup-tip {
+  background-color: #1E293B;
+  color: #F8FAFC;
+  border: 1px solid #334155;
+}
+.dark .leaflet-control-zoom a {
+  background-color: #1E293B;
+  color: #F8FAFC;
+  border-color: #334155;
+}
+
+/* ── Typography ────────────────────────────────────────────── */
+@layer base {
+  body {
+    background-color: var(--bg-app);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.font-mono,
+code, pre, kbd, samp {
+  font-family: 'JetBrains Mono', 'Roboto Mono', 'SF Mono', Consolas, Menlo, Monaco, 'Courier New', monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* ── Custom Tactical Leaflet Popup ────────────────────────── */
+.tactical-leaflet-popup .leaflet-popup-content-wrapper {
+  background-color: #0F172A !important;
+  color: #F8FAFC !important;
+  border: 1px solid #334155 !important;
+  border-top: 3px solid #DC2626 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
+  padding: 0 !important;
+}
+.tactical-leaflet-popup .leaflet-popup-content {
+  margin: 10px 12px !important;
+  line-height: 1.4 !important;
+}
+.tactical-leaflet-popup .leaflet-popup-tip {
+  background-color: #0F172A !important;
+  border: 1px solid #334155 !important;
+}
+.tactical-leaflet-popup a.leaflet-popup-close-button {
+  color: #94A3B8 !important;
+  top: 6px !important;
+  right: 8px !important;
+  padding: 2px !important;
+}
+.tactical-leaflet-popup a.leaflet-popup-close-button:hover {
+  color: #F8FAFC !important;
+}
+
+/* ── High Severity Pulsing Halo Effect ────────────────────── */
+.high-severity-pulsing-halo {
+  position: relative;
+}
+.high-severity-pulsing-halo::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(220, 38, 38, 0.35);
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.6); opacity: 0.8; }
+  50% { transform: scale(1.5); opacity: 0; }
+  100% { transform: scale(0.6); opacity: 0; }
+}
+
+/* ── Surface Utilities ─────────────────────────────────────── */
+.surface-workspace {
+  background-color: var(--bg-workspace);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+.surface-document {
+  background-color: var(--bg-workspace);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-premium {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-premium:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Print CSS */
+@media print {
+  body { background-color: #ffffff !important; color: #000000 !important; }
+  aside, header, nav, .no-print { display: none !important; }
+  .print-page { padding: 0 !important; border: none !important; box-shadow: none !important; }
+}

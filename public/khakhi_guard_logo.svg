@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Outer shield octagon -->
+  <path
+    d="M50 4 L82 16 L94 48 L82 80 L50 96 L18 80 L6 48 L18 16 Z"
+    fill="currentColor"
+    stroke="currentColor"
+    stroke-width="0"
+    opacity="1"
+  />
+  <!-- Inner cutout shield -->
+  <path
+    d="M50 12 L76 22 L86 48 L76 74 L50 88 L24 74 L14 48 L24 22 Z"
+    fill="white"
+    stroke="none"
+  />
+  <!-- Horizontal divider bar -->
+  <rect x="14" y="44" width="72" height="8" fill="currentColor" />
+  <!-- Top section — K glyph -->
+  <g fill="currentColor">
+    <!-- K vertical stroke -->
+    <rect x="34" y="18" width="6" height="26" rx="1" />
+    <!-- K upper diagonal -->
+    <path d="M40 18 L56 30 L51 33 Z" />
+    <!-- K lower diagonal -->
+    <path d="M40 44 L56 32 L51 29 Z" />
+  </g>
+  <!-- Bottom section — G glyph -->
+  <g fill="currentColor">
+    <!-- G arc (circle with gap) -->
+    <path
+      d="M50 56 C40 56 34 62 34 70 C34 78 40 84 50 84 C58 84 64 79 65 73 L55 73 L55 69 L69 69 L69 70 C69 81 60.5 88 50 88 C36 88 26 79 26 70 C26 61 36 52 50 52 C57 52 63 55 67 60 L62 63 C59 60 55 56 50 56 Z"
+      fill="none"
+      stroke="none"
+    />
+    <!-- Simplified bold G -->
+    <path
+      d="M50 55
+         C39 55 32 62 32 70
+         C32 78 39 85 50 85
+         C59 85 66 80 67 72
+         L55 72 L55 68 L71 68 L71 72
+         C70 83 61 89 50 89
+         C35 89 24 79 24 70
+         C24 61 35 51 50 51
+         C58 51 65 55 69 61
+         L64 65
+         C61 61 56 55 50 55 Z"
+      fill="currentColor"
+    />
+  </g>
+  <!-- Four corner dots - classification marks -->
+  <circle cx="22" cy="22" r="2.5" fill="currentColor" opacity="0.5" />
+  <circle cx="78" cy="22" r="2.5" fill="currentColor" opacity="0.5" />
+  <circle cx="22" cy="78" r="2.5" fill="currentColor" opacity="0.5" />
+  <circle cx="78" cy="78" r="2.5" fill="currentColor" opacity="0.5" />
+</svg>

@@ -1,0 +1,162 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String     @id @default(uuid())
+  name         String
+  badgeNumber  String     @unique
+  email        String     @unique
+  passwordHash String
+  role         String     @default("INVESTIGATOR") // INVESTIGATOR, ANALYST, SUPERVISOR, ADMIN
+  jurisdiction String     @default("Chandigarh UT")
+  status       String     @default("ACTIVE")
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  cases        Case[]
+  evidence     Evidence[]
+}
+
+model Case {
+  id                     String                 @id @default(uuid())
+  firNumber              String                 @unique
+  title                  String
+  policeStation          String
+  status                 String                 @default("OPEN") // OPEN, IN_PROGRESS, CLOSED, COURT_PROCEEDINGS
+  priority               String                 @default("HIGH") // CRITICAL, HIGH, MEDIUM, LOW
+  financialExposure      Float                  @default(0.0)
+  totalFrozen            Float                  @default(0.0)
+  complainantName        String?
+  accusedName            String?
+  incidentDate           DateTime?
+  summary                String?
+  investigatingOfficerId String?
+  investigatingOfficer   User?                  @relation(fields: [investigatingOfficerId], references: [id])
+  createdAt              DateTime               @default(now())
+  updatedAt              DateTime               @updatedAt
+  entities               Entity[]
+  relationships          Relationship[]
+  evidence               Evidence[]
+  transactions           FinancialTransaction[]
+}
+
+model Entity {
+  id                  String         @id @default(uuid())
+  caseId              String
+  case                Case           @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  type                String         // PERSON, PHONE, CRYPTO_WALLET, BANK_ACCOUNT, IP, URL
+  value               String
+  name                String?
+  category            String?
+  riskScore           Int            @default(50)
+  isVerified          Boolean        @default(false)
+  metadata            String?        // JSON string
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+  sourceRelationships Relationship[] @relation("SourceEntity")
+  targetRelationships Relationship[] @relation("TargetEntity")
+}
+
+model Relationship {
+  id               String   @id @default(uuid())
+  caseId           String
+  case             Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  sourceEntityId   String
+  sourceEntity     Entity   @relation("SourceEntity", fields: [sourceEntityId], references: [id], onDelete: Cascade)
+  targetEntityId   String
+  targetEntity     Entity   @relation("TargetEntity", fields: [targetEntityId], references: [id], onDelete: Cascade)
+  relationshipType String
+  confidenceScore  Float    @default(0.95)
+  sourceEvidenceId String?
+  notes            String?
+  createdAt        DateTime @default(now())
+}
+
+model Evidence {
+  id               String                 @id @default(uuid())
+  caseId           String
+  case             Case                   @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  evidenceType     String                 // FIR_PDF, CDR_CSV, MEDIA_VIDEO, MEDIA_AUDIO, BINARY
+  originalFilename String
+  mimeType         String
+  storagePath      String
+  fileSizeBytes    Int                    @default(0)
+  sha256Hash       String
+  processingStatus String                 @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED
+  uploaderId       String?
+  uploader         User?                  @relation(fields: [uploaderId], references: [id])
+  createdAt        DateTime               @default(now())
+  updatedAt        DateTime               @updatedAt
+  cdrRows          TelecomCdr[]
+  mediaFindings    MediaFinding[]
+  transactions     FinancialTransaction[]
+}
+
+model TelecomCdr {
+  id             String    @id @default(uuid())
+  evidenceId     String
+  evidence       Evidence  @relation(fields: [evidenceId], references: [id], onDelete: Cascade)
+  callerNumber   String
+  receiverNumber String
+  callTimestamp  DateTime
+  durationSec    Int       @default(0)
+  towerId        String?
+  towerLocation  String?
+  latitude       Float?
+  longitude      Float?
+  imsi           String?
+  isCritical     Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+}
+
+model FinancialTransaction {
+  id           String    @id @default(uuid())
+  caseId       String
+  case         Case      @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  evidenceId   String?
+  evidence     Evidence? @relation(fields: [evidenceId], references: [id], onDelete: SetNull)
+  txHash       String    @unique
+  network      String    @default("ETH")
+  sourceWallet String
+  destWallet   String
+  amount       Float
+  currency     String    @default("INR")
+  hopNumber    Int       @default(1)
+  isFrozen     Boolean   @default(false)
+  exchangeInfo String?
+  timestamp    DateTime  @default(now())
+  createdAt    DateTime  @default(now())
+}
+
+model MediaFinding {
+  id              String   @id @default(uuid())
+  evidenceId      String
+  evidence        Evidence @relation(fields: [evidenceId], references: [id], onDelete: Cascade)
+  anomalyType     String
+  track           String   @default("video") // video, audio, both
+  startTime       Float
+  endTime         Float
+  confidence      Int      @default(90)
+  label           String
+  description     String
+  xaiRationale    String?
+  evidenceTypeTag String   @default("AI")
+  createdAt       DateTime @default(now())
+}
+
+model AuditLog {
+  id             String   @id @default(uuid())
+  actorId        String?
+  actorName      String?
+  action         String
+  targetResource String
+  targetId       String?
+  diffJson       String?  // JSON string
+  ipAddress      String?
+  timestamp      DateTime @default(now())
+}
