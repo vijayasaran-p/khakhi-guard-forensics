@@ -1,6 +1,8 @@
 # KHAKHI GUARD — Digital Forensics & Cyber Crime Intelligence Platform
 *(Formerly SUTRA.net)*
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Platform-059669?style=for-the-badge&logo=googlechrome&logoColor=white)](https://code-iyal-60076288704.development.catalystserverless.in/app/index.html)
+
 [![React](https://img.shields.io/badge/React-18-61dafb.svg?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6.svg?logo=typescript)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-18-339933.svg?logo=node.js)](https://nodejs.org/)
